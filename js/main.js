@@ -12,7 +12,7 @@ function onClickPrint(value){
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(xhttp.responseText);
       
-      let peoples = response.peoples;
+      let peoples = response;
       let outputPerson = '';
       let outputFriOfPerson = '';
       let outputFriOfFriPerson = '';
