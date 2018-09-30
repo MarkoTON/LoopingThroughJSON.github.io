@@ -12,7 +12,7 @@ function onClickPrint(value){
     if (this.readyState == 4 && this.status == 200) {
       let response = JSON.parse(xhttp.responseText);
       
-      let peoples = response.peoples;
+      let peoples = response;
       let outputPerson = '';
       let outputFriOfPerson = '';
       let outputFriOfFriPerson = '';
@@ -28,15 +28,6 @@ function onClickPrint(value){
           outputPerson += `<h1>${peoples[i].firstName} ${peoples[i].surname}</h1> 
           <p>is ${peoples[i].age} old.</p>
           <p>Gender: <b>${peoples[i].gender}.</b></p>
-          <hr>
-          <div class="row">
-          <div class="col-md-6">
-          <p class="d-inline"><b>Friends of ${peoples[i].firstName} ${peoples[i].surname} : </b></p>
-          </div>
-          <div class="col-md-6">
-          <p class="d-inline"><b>Friends of friends ${peoples[i].firstName} ${peoples[i].surname} : </b></p>              
-          </div>
-          </div>
           <hr>
           `;
           
@@ -76,7 +67,8 @@ function onClickPrint(value){
             console.log(peoples[nameUser].firstName);
           });
           
-
+          
+          //// Predlozeni prijatelji
           let doubleUsers = newUserArray.slice().sort();
           let doubleFriendsOfUsers = [];
           for (let i = 0; i < doubleUsers.length - 1; i++) {
@@ -85,13 +77,22 @@ function onClickPrint(value){
             }
           }
 
-          doubleFriendsOfUsers.forEach(function(sugestionUser){
-            // Stampanje predlozenog prijatelja
-            sugestion += `
-            <h4 class="red">${peoples[sugestionUser].firstName} ${peoples[sugestionUser].surname}</h4><hr>
-            `
-            console.log(peoples[sugestionUser].firstName);
-          })
+          if(doubleFriendsOfUsers.length <= 0){
+            sugestion = `
+            <h4>There is no suggested friends</h4>
+            `;
+          } else {   
+            doubleFriendsOfUsers.forEach(function(sugestionUser){
+              // Stampanje predlozenog prijatelja
+              sugestion += `
+              <h4 class="red">${peoples[sugestionUser].firstName} ${peoples[sugestionUser].surname}</h4><hr>
+              `
+              console.log(peoples[sugestionUser].firstName);
+            })
+          }
+
+
+          
           
           // console.log(doubleFriendsOfUsers);
           
